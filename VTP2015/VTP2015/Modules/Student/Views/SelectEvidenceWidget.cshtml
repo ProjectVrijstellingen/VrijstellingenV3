@@ -1,0 +1,9 @@
+﻿@using VTP2015.Entities
+@using VTP2015.Helpers
+@model VTP2015.Modules.Student.ViewModels.EvidenceListViewModel[]
+
+    @using (Html.BeginPanel("Bewijzen"))
+    {
+        var submitted = (FileStatus) ViewBag.FileStatus == FileStatus.Submitted;
+        @Html.ShowBewijzenList(Model,!submitted,submitted)
+    }

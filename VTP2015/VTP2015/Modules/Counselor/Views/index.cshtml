@@ -1,0 +1,22 @@
+﻿@model IEnumerable<VTP2015.Modules.Counselor.ViewModels.FileOverviewViewModel>
+<br />
+
+<div class="container">
+        <div class="row" id="overview">
+            @Html.Action("FileOverviewWidget")
+        </div>
+        <div class="row hide" id="details">
+            <div>
+                @Html.Partial("RequestDetailPartial")
+            </div>
+        </div>
+</div>
+
+@Scripts.Render("~/bundles/counselor")
+@section css{
+    <style>
+        .previousEvidence, .nextEvidence {
+            cursor: pointer;
+        }
+    </style>
+}

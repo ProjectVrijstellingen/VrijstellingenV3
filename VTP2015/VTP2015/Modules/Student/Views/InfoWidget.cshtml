@@ -1,0 +1,31 @@
+﻿@using VTP2015.Helpers
+@model VTP2015.Modules.Student.ViewModels.StudentViewModel
+
+@using VTP2015.Helpers
+@{
+    ViewBag.Title = "Student - Account";
+    Layout = "~/Modules/Shared/Views/_Layout.cshtml";
+}
+
+<div class="container-fix">
+    <br />
+</div>
+
+<div class="container">
+    @*<div class="panel-heading ">
+            <h3 class="panel-title">Uw Account</h3>
+        </div>*@
+
+    <div id="infoSide" class="col-md-6" data-url="@Url.Action("SubmitFile","Student")">
+        @using (Html.BeginPanel("Informatie"))
+        {
+            <h3>@Model.FirstName @Model.Name</h3>
+            <p>@Model.Email</p>
+            <p><b>@Model.Education</b><br />Begeleider: @Model.Counselor</p>
+            <br />
+            @Ajax.ActionLink("Account Synchonisatie", "StudentSync", "Student", new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-primary" })
+        }
+    </div>
+</div>
+
+    @Scripts.Render("~/bundles/student")

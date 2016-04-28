@@ -1,0 +1,25 @@
+﻿@model VTP2015.Modules.Feedback.ViewModels.AddFeedbackViewModel
+
+<div class="panel panel-default clearfix inheritWidth" id="feedback">
+    <div class="panel-heading ">
+        <h3 class="panel-title">Feedback</h3>
+    </div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("AddFeedback", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            Url = "Feedback/AddFeedback",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "response",
+        }))
+        {
+            @Html.TextAreaFor(m => m.Text);
+            <br />
+            <input type="submit" value="Verstuur" class="btn btn-primary" />
+        }
+        <div id="response">
+
+        </div>
+
+    </div>
+</div>

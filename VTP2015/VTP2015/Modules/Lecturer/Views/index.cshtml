@@ -1,0 +1,41 @@
+﻿@model IEnumerable<VTP2015.Modules.Lecturer.ViewModels.RequestListViewModel>
+@{
+    ViewBag.Title = "Docent";
+}
+
+<br/>
+
+<div class="container body-content">
+    <div class="container-fix">
+
+        <div class="panel panel-default clearfix">
+            <div class="panel-heading">
+                <h3 class="panel-title">Docent</h3>
+            </div>
+            <div class="panel-body">
+                @if (ViewBag.AantalAanvragen > 0)
+                    {<a class="btn btn-danger" id="ShowOpen">Openstaande aanvragen<span class="badge badge-success" style="margin-left: 1em">@ViewBag.AantalAanvragen</span></a>}
+                else         
+                    {<a class="btn btn-primary" id="ShowOpen">Openstaande aanvragen<span class="badge badge-success" style="margin-left: 1em">@ViewBag.AantalAanvragen</span></a>}
+
+                <a class="btn btn-primary" id="ShowBehandeld">Reeds behandelde aanvragen</a>
+                <a class="btn btn-primary" id="ShowVerwijder">Partims verwijderen</a>
+
+            </div>
+        </div>
+
+        <div id="Open" class="hide">
+            @Html.Action("OpenRequests")
+        </div>
+            
+        <div id="Behandeld" class="hide">
+            @Html.Action("Archive")
+        </div>
+
+        <div id="Verwijder" class="hide">
+            @Html.Action("Partim")
+        </div>
+
+    </div>
+</div>
+@Scripts.Render("~/bundles/lecturer")

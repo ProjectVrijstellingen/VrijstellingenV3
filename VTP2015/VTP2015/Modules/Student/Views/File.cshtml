@@ -1,0 +1,217 @@
+﻿@using VTP2015.Config
+@using VTP2015.Helpers
+@using VTP2015.ServiceLayer.Student.Models
+@model VTP2015.Modules.Student.ViewModels.FileListViewModel[]
+@{
+    ViewBag.Title = "Student - FileStudentName";
+}
+
+<div class="container-fix">
+    <br />
+</div>
+<style type="text/css">
+    .nav-wizard > li {
+        float: left;
+    }
+
+        .nav-wizard > li > a {
+            position: relative;
+            background-color: #eee;
+        }
+
+        .nav-wizard > li:not(:first-child) > a {
+            padding-left: 34px;
+        }
+
+            .nav-wizard > li:not(:first-child) > a:before {
+                width: 0;
+                height: 0;
+                border-top: 20px inset transparent;
+                border-bottom: 20px inset transparent;
+                border-left: 20px solid #fff;
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+            }
+
+        .nav-wizard > li:not(:last-child) > a {
+            margin-right: 6px;
+        }
+
+            .nav-wizard > li:not(:last-child) > a:after {
+                width: 0;
+                height: 0;
+                border-top: 20px inset transparent;
+                border-bottom: 20px inset transparent;
+                border-left: 20px solid #eee;
+                position: absolute;
+                content: "";
+                top: 0;
+                right: -20px;
+                z-index: 2;
+            }
+
+        .nav-wizard > li:first-child > a {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .nav-wizard > li:last-child > a {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .nav-wizard > li.done:hover > a, .nav-wizard > li:hover > a {
+            background-color: #d5d5d5;
+        }
+
+            .nav-wizard > li.done:hover > a:before, .nav-wizard > li:hover > a:before {
+                border-right-color: #d5d5d5;
+            }
+
+            .nav-wizard > li.done:hover > a:after, .nav-wizard > li:hover > a:after {
+                border-left-color: #d5d5d5;
+            }
+
+        .nav-wizard > li.done > a {
+            background-color: #e2e2e2;
+        }
+
+            .nav-wizard > li.done > a:before {
+                border-right-color: #e2e2e2;
+            }
+
+            .nav-wizard > li.done > a:after {
+                border-left-color: #e2e2e2;
+            }
+
+        .nav-wizard > li.active > a, .nav-wizard > li.active > a:hover, .nav-wizard > li.active > a:focus {
+            color: #fff;
+            background-color: #808080;
+        }
+
+            .nav-wizard > li.active > a:after {
+                border-left-color: #808080;
+            }
+
+            .nav-wizard > li.active > a .badge {
+                color: #808080;
+                background-color: #fff;
+            }
+
+        .nav-wizard > li.disabled > a {
+            color: #777;
+        }
+
+            .nav-wizard > li.disabled > a:hover, .nav-wizard > li.disabled > a:focus {
+                color: #777;
+                text-decoration: none;
+                background-color: #eee;
+                cursor: default;
+            }
+
+            .nav-wizard > li.disabled > a:before {
+                border-right-color: #eee;
+            }
+
+    .nav-wizard.nav-justified > li {
+        float: none;
+    }
+
+        .nav-wizard.nav-justified > li > a {
+            padding: 10px 15px;
+        }
+</style>
+
+<div class="container-fix">
+    <br />
+</div>
+
+<div class="container">
+    @* NAVIGATIE *@
+    <h1>Aanvraagformulier</h1>
+    <ul class="nav nav-wizard">
+        <li class="hide"><a href="#" id="navStap1">Opleidingen</a></li>
+        <li class="hide"><a href="#" id="navStap2">Bewijzen</a></li>
+        <li class="hide"><a href="#" id="navStap3">Dossier aanmaken/selecteren</a></li>
+        <li class="hide"><a href="#" id="navStap4">Modules aanvragen</a></li>
+        <li class="hide"><a href="#" id="navStap5">Dossier indienen</a></li>
+    </ul>
+    <br />
+
+        <div class="col-md-10">
+            @* BEGINPAGINA *@
+            <div class="row hide" id="stap0">
+                <div class="col-md-7">
+                    <a href="#">
+                        <img class="img-responsive" src="~/Content/Images/student_begin.jpg" />
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <h3>Vraag hier uw vrijstellingen aan</h3>
+                    <p>Om uw vrijstellingen en/of uw persoonlijk traject aan te vragen dient u gewoon de wizard te volgen en de rest gaat van zelf.</p>
+                    <p>De trajectbegeleider bekijkt uw aanvraag en brengt u op de hoogte van zodra de aanvraag is bekeken.</p>
+                    <a class="btn btn-primary" id="btnStap0" href="#">Start aanvraag <span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            </div>
+
+            @* OPLEIDINGEN *@
+            <div id="stap1" class="hide">
+                @using (Html.BeginPanel("Vorige opleidingen die u hebt gevolgd:"))
+            {
+                    @Html.Action("EducationListWidget")
+                    @Html.Action("AddEducationWidget")
+                }
+                @Html.NextButton("btnStap1")
+            </div>
+
+            @* BEWIJZEN *@
+            <div id="stap2" class="hide">
+                @using (Html.BeginPanel("Dien hier uw bewijzen in (bijvoorbeeld een rapport):"))
+            {
+                    @Html.Action("EvidenceListWidget")
+                    @Html.Action("AddFileWidget")
+                }
+                @Html.NextButton("btnStap2")
+            </div>
+
+            @* DOSSIER OPENEN / SELECTEREN *@
+            <div id="stap3" class="hide">
+                <div data-url="@Url.Action("SubmitFile","Student")">
+                    @Html.Action("FileWidget")
+                </div>
+
+            </div>
+
+            @* DOSSIER INVULLEN + DETAILS *@
+            <div id="stap4" class="">
+                <form role="form">
+                    <div class="container-fix">
+                        <div class="row">
+                            <div id="bewijzenColumn" class="col-md-4 hide">
+                                @Html.Action("SelectEvidenceWidget")
+                                @Html.Action("SelectEducationWidget")
+                               
+                            </div>
+
+                            @Html.Action("AvailablePartimsWidget")
+
+                            @Html.Action("RequestDetailWidget")
+
+                            @Html.Action("RequestedPartimsWidget")
+                           
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            @* INDIENEN *@
+            <div id="stap5" class="hide">
+                <a id="DossierOk" href="../Submit">DOSSIER INDIENEN</a>
+            </div>
+        </div>
+   
+</div>
+    @Scripts.Render("~/bundles/student")

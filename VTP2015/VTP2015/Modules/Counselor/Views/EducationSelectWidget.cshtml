@@ -1,0 +1,16 @@
+﻿@model VTP2015.Modules.Counselor.ViewModels.EducationSelectViewModel
+<form class="form-group col-md-3">
+    <select id="select-opleiding" class="form-control pull-right">
+        @foreach (var opleiding in Model.Opleidingen)
+        {
+            if (opleiding.Name == Model.SelectedOpleiding)
+            {
+                <option selected>@opleiding.Name</option>
+            }
+            else
+            {
+                 <option >@opleiding.Name</option>
+             }
+        }
+    </select>
+</form>

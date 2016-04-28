@@ -1,0 +1,35 @@
+﻿@using VTP2015.DataAccess.Identity
+@using VTP2015.DataAccess.ServiceRepositories
+@model VTP2015.Modules.Feedback.ViewModels.IndexViewModel
+
+@{
+    IdentityManagementWebservice _identityService = new IdentityManagementWebservice();
+    IdentityRepository _identity = new IdentityRepository();
+    Layout = "~/Modules/Shared/Views/_Layout.cshtml";
+}
+<div class="container-fix">
+    <br />
+</div>
+
+
+<div class="container">
+    @*<div class="panel-heading ">
+            <h3 class="panel-title">Feedback</h3>
+        </div>*@
+
+    <div class="panel-body">
+    
+        <div id="infoSide" class="col-md-6" data-url="@Url.Action("SubmitFile","Student")">
+
+            @Html.Action("AddFeedbackWidget", "Feedback")
+
+
+
+
+
+        </div>
+
+
+    </div>
+</div>
+

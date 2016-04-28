@@ -1,0 +1,89 @@
+﻿@using System
+@using VTP2015.Identity
+@{
+    var im = new IdentityManager();
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Vrijstellingen / Trajecten</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+   
+
+    <link type="text/css" href="~/Content/Stylesheet.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="navbar navbar-default navbar-fixed-top" style="height: 8%;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-title">VRIJSTELLINGEN</div>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="start">
+                            @Html.RouteLink("Start", new { controller = "Authentication", action = "Home" })
+                        </li>
+                        <li>
+                            @Html.RouteLink("Account", new { controller = "Student", action = "InfoWidget" })
+                        </li>
+                      
+                        <li>
+                            @if (im.HasRole(User.Identity.Name, "Counselor")) { 
+
+                            <li>
+                                @Html.RouteLink("Docent", new { controller = "Lecturer", action = "Index" })
+                            </li>
+                            }
+                            </li>
+                            <li>
+                                @if (im.HasRole(User.Identity.Name, "Admin"))
+                                {
+                                    @Html.RouteLink("Admin", new { controller = "Admin", action = "Index" })
+                                }
+                            </li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+    }
+    <div class="container body-content">
+        <br />
+        @RenderBody()
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        
+        <footer>
+            <hr />
+            <p>&copy; @DateTime.Now.Year - Vrijstellingen / Trajecten tool Howest</p>
+
+            <div id="feedback" style="padding-right:3px;">
+                <a href="#" id='link' style="color:red;" >Problemen ? Geef uw feedback hier</a>
+                <div id="feedbackWidget" class="hide"><p>@Html.Action("AddFeedbackWidget", "Feedback")</p></div>
+            </div>
+        </footer>
+    }
+    @RenderSection("scripts", required: false)
+    @RenderSection("css", required: false)
+    @Scripts.Render("~/bundles/entire") 
+</body>
+</html>
